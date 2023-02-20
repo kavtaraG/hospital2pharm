@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <script>
+      let hospId = document.getElementById('hospId').value;
+      let password = document.getElementById('password').value;
+      let data = {hospId, password};
+      let response = fetch('/api/v1/hospital', {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Success:', data);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+    </script>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <p>hospital module</p>
+    <div id="login-div">
+      <input id="hospId" placeholder="Hospital ID"><br><br>
+      <input id="password" placeholder="Password" type="password"><br><br>
+      <input id="btn" value="Sing Up" type="button" onclick="location='#'">
+      <input value="Cancel" type="button" onclick="location='/'">
+    </div>
+  </body>
+</html>
