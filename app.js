@@ -3,6 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var dotenv = require('dotenv');
+var mongodb = require('./mongo-test');
+
+dotenv.config({path: __dirname + './process.env'});
 
 var indexRouter = require('./routes/index');
 var userspharmRouter = require('./routes/users-pharm');
@@ -25,7 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users_hosp', usershospitalRouter);
 app.use('/users_pharm', userspharmRouter);
-
 app.use('/apiv1/hospital', hospitalApi);
 app.use('/api/v1/pharmacy', pharmacyApi);
 
@@ -43,6 +46,19 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Listening to the port: ${PORT}`);
+  process.on('uncaughtException', (data) => {
+    try{
+      return data;
+    }catch(err) {
+      if (err) throw err;
+    };
+  });
 });
 
 module.exports = app;

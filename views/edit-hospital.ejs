@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel='stylesheet' href='/stylesheets/hospital-order.css'/>
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		let doEdit = () => {
+			let name = document.getElementById('name').value;
+			let surname = document.getElementById('surname').value;
+			let age = document.getElementById('age').value;
+			let mounth = document.getElementById('mounth').value;
+			let year = document.getElementById('year').value;
+			let id = document.getElementById('id').value;
+			let prescreption = document.getElementById('prescreption').value;
+			let drugs = document.getElementById('drugs').value;
+			let data = {name, surname, age, mounth, year, id, prescreption, drugs};
+			let response = fetch('/api/v1/hospital', {
+			method: 'POST', // or 'PUT'
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+			})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log('Success:', data);
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+			if(response.status == 'ok') {
+				location='/api/v1/hospital';
+			}else{
+				return alert(response.msg);
+			}
+		}
+		
+	</script>
+	<!-- <div id="order-container">
+		<div id="header-container">
+			<p>Prescrebtion blanc</p>
+		</div>
+		<input id="name" placeholder="Name"></inpu><br><br>
+		<input id="surname" placeholder="Surname"></inpu><br><br>
+		<input id="age" placeholder="Age"></inpu><br><br>
+		<input id="mounth" placeholder="Mounth"></inpu><br><br>
+		<input id="year" placeholder="Year"></inpu><br><br>
+		<input id="id" placeholder="ID"></inpu><br><br>
+		<input id="prescreption" placeholder="Prescrebtion"></inpu><br><br>
+		<input id="drugs" placeholder="Drugs"></inpu><br><br>
+		<input id="btn" type="button" value="Edit" onclick="doSubmit()">
+		<input id="btn" type="button" value="Cancel" onclick="location='/hospital'">
+	</div> -->
+
+	<div class="page-data">
+        <div class="data-table">
+           <table border="1" cellpadding="7" cellspacing="7">
+               <tr>
+                   <th width="20px">No</th>
+                   <th width="250px">Name</th>
+                   <th width="220px">Surname</th>
+                   <th width="100px">Age</th>
+                   <th width="300px">Mounth</th>
+				   <th width="300px">Years</th>
+				   <th width="300px">ID</th>
+				   <th width="300px">Prescreption</th>
+				   <th width="300px">Drugs</th>
+                   <th>Edit</th>
+                   <th>Delete</th>
+               </tr>
+               <% if(data.length){for(var i = 0;i < data.length;i++) { %>       
+               <tr>
+                   <td><%=data[i].id%></td>
+                   <td><%=data[i].name%></td>
+                   <td><%=data[i].surname%></td>
+                   <td><%=data[i].age%></td>
+                   <td><%=data[i].mounth%></td>
+				   <td><%=data[i].Year%></td>
+				   <td><%=data[i].ID%></td>
+				   <td><%=data[i].prescreption%></td>
+				   <td><%=data[i].drugs%></td>
+                   <td><button onclick="doEdit('<%=data[i].id%>');" >Edit</button></td>
+                   <!-- <td><button onclick="doDelete('<%=data[i].id %>');">Delete</button></td> -->
+               </tr>
+           <% }
+            }else{ %>
+                <tr>
+                   <td colspan="7">No customer found</td>
+                </tr>
+           <% } %> 
+           </table>
+        </div>
+       </div>
+</body>
+</html>
