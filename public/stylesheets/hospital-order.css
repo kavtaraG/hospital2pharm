@@ -1,0 +1,72 @@
+body {
+	box-sizing: border-box;
+	background-color:antiquewhite
+}
+
+p {
+	text-align: center;
+	font-size: large;
+	font-family: sans-serif;
+}
+
+#order-container {
+  border: 3px solid #f00;
+  padding: 30px;
+  position: absolute;
+  left: 35%;
+  top: 10%;
+}
+
+#name {
+	border-radius: 10%;
+	height: 30px;
+	width: 300px;
+}
+
+#surname {
+	border-radius: 10%;
+	height: 30px;
+	width: 300px;
+}
+#age {
+	border-radius: 10%;
+	height: 30px;
+	width: 300px;
+}
+
+#mounth {
+	border-radius: 10%;
+	height: 30px;
+	width: 300px;
+}
+
+#year {
+	border-radius: 10%;
+	height: 30px;
+	width: 300px;
+}
+
+#ID {
+	border-radius: 10%;
+	height: 30px;
+	width: 300px;
+}
+
+#prescreption {
+	border-radius: 10%;
+	height: 30px;
+	width: 300px;
+}
+
+#drugs {
+	border-radius: 10%;
+	height: 30px;
+	width: 300px;
+}
+
+#btn {
+	height: 30px;
+	width: 150px;
+	background-color: whitesmoke;
+	cursor: pointer;
+}

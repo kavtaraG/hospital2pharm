@@ -23,8 +23,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users_pharm', userspharmRouter);
 app.use('/users_hosp', usershospitalRouter);
+app.use('/users_pharm', userspharmRouter);
+
 app.use('/apiv1/hospital', hospitalApi);
 app.use('/api/v1/pharmacy', pharmacyApi);
 

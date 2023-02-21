@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel='stylesheet' href='/stylesheets/hospital-order.css'/>
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		let doSubmit = () => {
+			let name = document.getElementById('name').value;
+			let surname = document.getElementById('surname').value;
+			let age = document.getElementById('age').value;
+			let mounth = document.getElementById('mounth').value;
+			let year = document.getElementById('year').value;
+			let id = document.getElementById('id').value;
+			let prescreption = document.getElementById('prescreption').value;
+			let drugs = document.getElementById('drugs').value;
+			let data = {name, surname, age, mounth, year, id, prescreption, drugs};
+			let response = fetch('/api/v1/hospital', {
+			method: 'POST', // or 'PUT'
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+			})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log('Success:', data);
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+			if(response.status == 'ok') {
+				location='/api/v1/hospital';
+			}else{
+				return alert(response.msg);
+			}
+		}
+		
+	</script>
+	<div id="order-container">
+		<div id="header-container">
+			<p>Prescrebtion blanc</p>
+		</div>
+		<input id="name" placeholder="Name"></inpu><br><br>
+		<input id="surname" placeholder="Surname"></inpu><br><br>
+		<input id="age" placeholder="Age"></inpu><br><br>
+		<input id="mounth" placeholder="Mounth"></inpu><br><br>
+		<input id="year" placeholder="Year"></inpu><br><br>
+		<input id="id" placeholder="ID"></inpu><br><br>
+		<input id="prescreption" placeholder="Prescrebtion"></inpu><br><br>
+		<input id="drugs" placeholder="Drugs"></inpu><br><br>
+		<input id="btn" type="button" value="Submit" onclick="doSubmit()">
+		<input id="btn" type="button" value="Cancel" onclick="location='/hospital'">
+	</div>
+</body>
+</html>

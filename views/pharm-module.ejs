@@ -8,10 +8,11 @@
 </head>
 <body>
 	<script>
+	let doLogin = async () => {
 		let pharmId = document.getElementById('pharm-id').value;
 		let password = document.getElementById('password').value;
 		let data = {pharmId, password};
-		let response = fetch('/api/v1/pharmacy', {
+		let response = await fetch('/users_pharm/login', {
 			method: 'POST', // or 'PUT'
 			headers: {
 				'Content-Type': 'application/json',
@@ -20,20 +21,31 @@
 			})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log('Success:', data);
+				// console.log('Success:', data);
+				return data;
 			})
 			.catch((error) => {
 				console.error('Error:', error);
 			});
+			if(response.status == 'ok') {
+				location = '/pharm_auth';
+			}else{
+				alert(response.msg);
+			}
+		}
+		
 	</script>
+	<header>
+		
+	</header>
 	<div id="pharm-div">
 		<div id="heder-container">
 			<p>Pharmacy module</p>
 		</div>
 		<input id="pharm-id" placeholder="Pharmacy ID" ><br><br>
 		<input id="password" placeholder="Password" type="password"><br><br>
-		<input id="btn" value="Sing Up" type="button" onclick="location='#'">
-		<input id="btn" value="Cancel" type="button" onclick="locatio='/'">
+		<input id="btn" value="Sing Up" type="button" onclick="doLogin()">
+		<input id="btn" value="Cancel" type="button" onclick="location='/'">
 	</div>
 </body>
 </html>

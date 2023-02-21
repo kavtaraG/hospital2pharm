@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel='stylesheet' href='/stylesheets/pharmacy-auth.css'/>
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+	let doFetch = () => {
+		let id = document.getElementById('id').value;
+		let data = {id};
+			let response = fetch('/api/v1/hospital')
+			.then((response) => response.json())
+			.then((data) => console.log(data))
+			.catch((err) => {
+				if(err) alert({status: 'fail', msg: 'can`t fetch data'});
+			});
+			if(response.status == 'ok') {
+				return alert(response.status);
+			}else {
+				return alert(response.msg);
+			}
+		}
+		
+	</script>
+	<div id="span-container">
+		<span><a href="/pharmacy">Back</a></span>
+	</div>
+
+	<div id="pharm-container">
+		<div id="header-container">
+			<p>Verification module</p>
+		</div>
+		<input id="id" placeholder="ID">
+		<input id="btn" type="button" value="Fetch" onclick="doFetch()">
+	</div>
+</body>
+</html>

@@ -6,10 +6,11 @@
   </head>
   <body>
     <script>
+    let doLogin = async () => {
       let hospId = document.getElementById('hospId').value;
       let password = document.getElementById('password').value;
       let data = {hospId, password};
-      let response = fetch('/api/v1/hospital', {
+      let response = await fetch('/users_hosp/login', {
           method: 'POST', // or 'PUT'
           headers: {
             'Content-Type': 'application/json',
@@ -18,19 +19,30 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log('Success:', data);
+            // console.log('Success:', data);
+            return data;
           })
           .catch((error) => {
             console.error('Error:', error);
           });
+          if(response.status == 'ok') {
+            location = '/order'
+          }else{
+            alert(response.msg);
+          }
+      }      
+      
     </script>
+    <header>
+      
+    </header>
     <div id="login-div">
       <div id="header-conteiner">
         <p>Hospital module</p>
       </div>
       <input id="hospId" placeholder="Hospital ID"><br><br>
       <input id="password" placeholder="Password" type="password"><br><br>
-      <input id="btn" value="Sing Up" type="button" onclick="location='#'">
+      <input id="btn" value="Sing Up" type="button" onclick="doLogin()">
       <input id="btn" value="Cancel" type="button" onclick="location='/'">
     </div>
   </body>
